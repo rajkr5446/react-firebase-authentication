@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+# React Firebase Authentication App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple React application that demonstrates how to implement user authentication using Firebase. This app allows users to sign up, log in, log out, reset forgotten password and update profile using their email and password. It also includes error handling and a protected route that requires authentication.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- User registration with email and password
+- User login with email and password
+- User logout
+- Reset forgotten password using email
+- User profile update (email and password)
+- Error handling for authentication
+- Protected route for authenticated users
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React: A JavaScript library for building user interfaces.
+- Firebase: A platform for building web and mobile applications.
+- React Router: Declarative routing for React applications.
+- Firebase Authentication: Firebase's authentication service for user management.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Prerequisites
 
-### `npm test`
+Before you start using this application, you need to have the following:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js and npm installed on your computer. You can download them [here](https://nodejs.org/).
+- A Firebase project set up on the [Firebase Console](https://console.firebase.google.com/).
+- Firebase Web configuration: You'll need to get your Firebase web configuration object from your Firebase project settings.
 
-### `npm run build`
+## Setup
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1.  Clone the repository to your local machine:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    ```bash
+    git clone https://github.com/rajkr5446/react-firebase-authentication.git
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2.  Navigate to the project directory
 
-### `npm run eject`
+3.  Install the project dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    ```bash
+    npm install
+    ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4.  Create a .env file at the root of your project and add your Firebase web configuration. Replace the placeholders with your actual Firebase project values:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    ```
+    REACT_APP_FIREBASE_API_KEY=your-api-key
+    REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
+    REACT_APP_FIREBASE_PROJECT_ID=your-project-id
+    REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
+    REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
+    REACT_APP_FIREBASE_APP_ID=your-app-id
+    ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+5.  Start the development server:
 
-## Learn More
+    ```bash
+    npm start
+    ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+6.  The app should open in your default web browser at **http://localhost:3000**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Design Choices:
 
-### Code Splitting
+1. **React Router for Routing:** I have used React Router to manage navigation and routing within the application. This facilitated the creation of protected routes, ensuring that only authenticated users could access specific sections of the app.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. **Context API for State Management:** I used Context API for state management, enabling us to share user authentication state across components without prop drilling.
 
-### Analyzing the Bundle Size
+3. **Bootstrap for Styling:** I have utilized Bootstrap to enhance the visual design and user experience of the app. This framework provided pre-designed components and themes, expediting development.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Challenges Faced:
 
-### Making a Progressive Web App
+1. The main challenge was to implement the persistence functionality as firebase doesn't retturn any JWT. After going through doc and some online blogs i found out that `createUserWithEmailAndPassword()` and `signInWithEmailAndPassword()` automatically store toekn in indexDB and that solves the problem
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+2. One more problem i faced is when updating email in [UpdateProfile.js](https://github.com/rajkr5446/react-firebase-authentication/blob/main/src/components/UpdateProfile.js). The error i got is **Firebase: Please verify the new email before changing email. (auth/operation-not-allowed).**
